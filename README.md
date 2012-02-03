@@ -6,10 +6,11 @@ You can use this to do subscription payments without needing to handle any
 credit card information yourself.
 
 Todo:
-- Examples and documentation
-- Gotchas about the debitech API
-- Page set templates (the pages that are shown at DIBS to input credit card info)
-- Rake tasks to update page sets
+
+* Examples and documentation
+* Gotchas about the debitech API
+* Page set templates (the pages that are shown at DIBS to input credit card info)
+* Rake tasks to update page sets
 
 ## Installation
 
