@@ -3,3 +3,4 @@
 .bundle
 .config
 Gemfile.lock
+pkg
