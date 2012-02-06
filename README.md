@@ -102,6 +102,10 @@ This returns a Debitech::ServerApi::ChargeResult, check [server_api.rb](https://
 
 In case it's "pending?", you can try again later with the same unique reference. The status is probably due to some temporary timeout or error between DIBS and the bank systems.
 
+## CI
+
+- Debitech is continuously tested for compability with Ruby 1.9.3 (p0), Ruby 1.8.7, JRuby 1.6.2 and Rubinius 1.2.3.
+
 ## Contributing
 
 1. Fork it
