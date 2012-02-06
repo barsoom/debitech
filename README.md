@@ -7,8 +7,7 @@ credit card information yourself.
 
 Todo:
 
-* Examples and documentation
-* Gotchas about the debitech API
+* Example app
 * Page set templates (the pages that are shown at DIBS to input credit card info)
 * Rake tasks to update page sets
 
@@ -85,10 +84,10 @@ Charging a credit card:
     # VERIFY_ID:        The id you get back when registering a card.
     # AMOUNT:           The amount to charge, must be in cents (1 SEK = 100).
     # IP:               The ip, can be "127.0.0.1", but the request ip is probably more useful.
-    # UNIQUE_REFERENCE: A unique reference, you want this to be something like invoice-NUM,
-    #                   so that you can search for it in DIBS manager with "invoice*". This
-    #                   is required so that you don't charge more than once for a single
-    #                   payment by accident. Must be atleast 5 characters long.
+    # UNIQUE_REFERENCE: A unique reference, you want this to be something like invoice-NUM, so that you can search for it
+    #                   in DIBS manager with "invoice*". This is required so that you don't charge more than once for a
+    #                   single payment by accident. Must be atleast 5 characters long.
+
     debitech.charge(:verify_id => verify_id,
                     :amount => AMOUNT,
                     :unique_reference => "UNIQUE_REFERENCE",
@@ -97,7 +96,7 @@ Charging a credit card:
 
 This returns a Debitech::ServerApi::ChargeResult, check [server_api.rb](https://github.com/barsoom/debitech/blob/master/lib/debitech/server_api.rb).
 
-In case it's "pending?", you can try again later with the same unique reference. The error is probably due to temporary timeout or error between DIBS and the bank systems.
+In case it's "pending?", you can try again later with the same unique reference. The status is probably due to some temporary timeout or error between DIBS and the bank systems.
 
 ## Contributing
 
