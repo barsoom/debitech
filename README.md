@@ -62,6 +62,8 @@ Get the API docs in DIBS manager, setup the account.
 
 ## Usage: Charging a credit card
 
+Configuration:
+
     # METHOD, MAC, ACCOUNT_NAME: Just like with the Web Api. 
     # API_USER: A API user you can create in DIBS manager.
     # API_PASSWORD: If it does not work, try to regenerate the password, some characters are not
@@ -76,9 +78,10 @@ Get the API docs in DIBS manager, setup the account.
       }
     }
 
-First try to get "valid_credentials?" to return true with just using [debitech_soap](https://github.com/joakimk/debitech_soap)
+First try to get "valid_credentials?" to return true with just using [debitech_soap](https://github.com/joakimk/debitech_soap).
 
-    # Charging a credit card
+Charging a credit card:
+
     debitech = Debitech::ServerApi.new(debitech_server_config)
 
     # VERIFY_ID:        The id you get back when registering a card.
@@ -94,11 +97,9 @@ First try to get "valid_credentials?" to return true with just using [debitech_s
                     :currency => "SEK",
                     :ip => "IP")
 
-    # This returns a Debitech::ServerApi::ChargeResult, check
-    # https://github.com/barsoom/debitech/blob/master/lib/debitech/server_api.rb
-    #
-    # In case it's "pending?", you can try again later with the same unique reference.
-    # The error is probably due to temporary timeout or error between DIBS and the bank systems.
+This returns a Debitech::ServerApi::ChargeResult, check [server_api.rb](https://github.com/barsoom/debitech/blob/master/lib/debitech/server_api.rb).
+
+In case it's "pending?", you can try again later with the same unique reference. The error is probably due to temporary timeout or error between DIBS and the bank systems.
 
 ## Contributing
 
