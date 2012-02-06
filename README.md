@@ -26,9 +26,44 @@ Or install it yourself as:
 
     $ gem install debitech
 
-## Usage
+## Usage: Preparation
 
-TODO: Write usage instructions here
+Get the API docs in DIBS manager, setup the account.
+
+    TODO: Someone could send a pull request with more docs here on
+    how to setup a new account, what to consider and what you should
+    ask the support for.
+
+## Usage: Adding a credit card
+
+    # MAC: Secret key shared by your app and DIBS, get it from the DIBS manager 
+    # METHOD: Something like cc.cekab, check the docs or ask support.
+    debitech_web_config = {
+      :merchant => "ACCOUNT_NAME",
+      :secret_key => "MAC",
+      :fields => { :method => "METHOD" }
+    }
+
+    # In the view: form to redirect the user to DIBS
+    <% api = Debitech::WebApi.new(debitech_web_config) %>
+    <form accept-charset="iso-8859-1" action="<%= api.form_action %>" method="post">
+      <% api.form_fields.each do |name, value| %>
+        <input name="<%= name %>" type="hidden" value="<%= value %>">
+      <% end %>
+
+      <!-- send translation strings, redirect back urls, etc here -->
+      <input name="redirect_back_url" type="hidden" value="http://yourapp/credit_cards">
+    </form>
+
+    # When you get the response back (TODO: add example templates)
+    api.valid_response?(mac, sum, reply, verify_id) # is the response from DIBS?
+    api.approved_reply?(reply)                      # was the card added successfully?
+
+    # Store verify_id as your reference to the card.
+
+## Usage: Charging a credit card
+
+TODO: write docs
 
 ## Contributing
 
