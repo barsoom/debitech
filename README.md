@@ -5,6 +5,10 @@ This is a DebiTech payment library extracted from production code.
 You can use this to do subscription payments without needing to handle any
 credit card information yourself.
 
+Setting up payments using DebiTech (one of the two payment systems run by DIBS) is not trivial,
+but it seems there are not many good options in Sweden yet. Atleast using this you don't need to
+figure out things like how to validate responses or how to not double charge, etc.
+
 Todo:
 
 * Example app
