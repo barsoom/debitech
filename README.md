@@ -54,7 +54,7 @@ Get the API docs in DIBS manager, setup the account.
       <% end %>
 
       <!-- send translation strings, redirect back urls, etc here -->
-      <input name="redirect_back_url" type="hidden" value="http://yourapp/credit_cards">
+      <input name="redirect_back_url" type="hidden" value="https://yourapp/credit_cards">
     </form>
 
     # When you get the response back (TODO: add example templates)
