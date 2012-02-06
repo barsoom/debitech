@@ -65,9 +65,7 @@ Get the API docs in DIBS manager, setup the account.
 Configuration:
 
     # METHOD, MAC, ACCOUNT_NAME: Just like with the Web Api. 
-    # API_USER: A API user you can create in DIBS manager.
-    # API_PASSWORD: If it does not work, try to regenerate the password, some characters are not
-    #               possible with the SOAP library.
+    # API_USER, API_PASSWORD:    A API user you can create in DIBS manager.
     debitech_server_config = {
       :method => "METHOD",
       :secret_key => "MAC",
@@ -78,7 +76,7 @@ Configuration:
       }
     }
 
-First try to get "valid_credentials?" to return true with just using [debitech_soap](https://github.com/joakimk/debitech_soap).
+First try to get "valid_credentials?" to return true using [debitech_soap](https://github.com/joakimk/debitech_soap). If it does not work, try to regenerate the password for the API user. Some characters are not possible with the SOAP library.
 
 Charging a credit card:
 
