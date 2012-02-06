@@ -30,13 +30,12 @@ Or install it yourself as:
 
 Get the API docs in DIBS manager, setup the account.
 
-    TODO: Someone could send a pull request with more docs here on
-    how to setup a new account, what to consider and what you should
-    ask the support for.
+    TODO: Someone could send a pull request with more docs here on how to setup a new
+          account, what to consider and what you should ask the support for.
 
 ## Usage: Adding a credit card
 
-    # MAC: Secret key shared by your app and DIBS, get it from the DIBS manager 
+    # MAC:    Secret key shared by your app and DIBS, get it from the DIBS manager 
     # METHOD: Something like cc.cekab, check the docs or ask support.
     debitech_web_config = {
       :merchant => "ACCOUNT_NAME",
@@ -63,7 +62,43 @@ Get the API docs in DIBS manager, setup the account.
 
 ## Usage: Charging a credit card
 
-TODO: write docs
+    # METHOD, MAC, ACCOUNT_NAME: Just like with the Web Api. 
+    # API_USER: A API user you can create in DIBS manager.
+    # API_PASSWORD: If it does not work, try to regenerate the password, some characters are not
+    #               possible with the SOAP library.
+    debitech_server_config = {
+      :method => "METHOD",
+      :secret_key => "MAC",
+      :soap_opts => {
+        :merchant => "ACCOUNT_NAME",
+        :username => "API_USER",
+        :password => "API_PASSWORD"
+      }
+    }
+
+    # First try to get "valid_credentials?" to return true with just using [debitech_soap](https://github.com/joakimk/debitech_soap)
+
+    # Charging a credit card
+    debitech = Debitech::ServerApi.new(debitech_server_config)
+
+    # VERIFY_ID:        The id you get back when registering a card.
+    # AMOUNT:           The amount to charge, must be in cents (1 SEK = 100).
+    # IP:               The ip, can be "127.0.0.1", but the request ip is probably more useful.
+    # UNIQUE_REFERENCE: A unique reference, you want this to be something like invoice-NUM,
+    #                   so that you can search for it in DIBS manager with "invoice*". This
+    #                   is required so that you don't charge more than once for a single
+    #                   payment by accident. Must be atleast 5 characters long.
+    debitech.charge(:verify_id => verify_id,
+                    :amount => AMOUNT,
+                    :unique_reference => "UNIQUE_REFERENCE",
+                    :currency => "SEK",
+                    :ip => "IP")
+
+    # This returns a Debitech::ServerApi::ChargeResult, check
+    # https://github.com/barsoom/debitech/blob/master/lib/debitech/server_api.rb
+    #
+    # In case it's "pending?", you can try again later with the same unique reference.
+    # The error is probably due to temporary timeout or error between DIBS and the bank systems.
 
 ## Contributing
 
