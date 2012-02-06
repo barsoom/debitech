@@ -76,7 +76,7 @@ Get the API docs in DIBS manager, setup the account.
       }
     }
 
-    # First try to get "valid_credentials?" to return true with just using [debitech_soap](https://github.com/joakimk/debitech_soap)
+First try to get "valid_credentials?" to return true with just using [debitech_soap](https://github.com/joakimk/debitech_soap)
 
     # Charging a credit card
     debitech = Debitech::ServerApi.new(debitech_server_config)
