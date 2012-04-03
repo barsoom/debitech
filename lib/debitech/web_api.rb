@@ -9,6 +9,7 @@ module Debitech
       @opts = opts
     end
 
+    # you probably want to encode these when posting to dibs, for example HTMLEntities.new.encode(v, :named) (gem: htmlentities)
     def form_fields
       base_fields.merge(:MAC => request_mac)
     end
