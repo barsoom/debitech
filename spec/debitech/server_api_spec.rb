@@ -3,13 +3,13 @@ require 'debitech'
 describe Debitech::ServerApi, "charge" do
 
   it "should perform a subscribe_and_settle call" do
-    settings = { 
+    settings = {
       :secret_key => "112756FC8C60C5603C58DA6E0A4844ACFDB60525",
       :method => "cc.cekab",
       :soap_opts => { :merchant => "store", :username => "api_user", :password => "api_password" } }
 
     DebitechSoap::API.should_receive(:new).with({ :merchant => "store", :username => "api_user", :password => "api_password" }).
-                                           and_return(soap_api = mock) 
+                                           and_return(soap_api = mock)
     soap_api.should_receive(:subscribe_and_settle).with(:verifyID => 1234567,
                             :data => "001:payment:1:10000:",
                             :ip => "127.0.0.1",
@@ -20,7 +20,7 @@ describe Debitech::ServerApi, "charge" do
   end
 
   it "should convert the amount to a integer to avoid 500 errors" do
-    DebitechSoap::API.stub!(:new).and_return(soap_api = mock) 
+    DebitechSoap::API.stub!(:new).and_return(soap_api = mock)
     soap_api.should_receive(:subscribe_and_settle).with(:verifyID => 1234567,
                             :data => "001:payment:1:2235:",
                             :ip => "127.0.0.1",
@@ -31,7 +31,7 @@ describe Debitech::ServerApi, "charge" do
   end
 
   it "should raise an error if the amount has a fraction" do
-    DebitechSoap::API.stub!(:new).and_return(soap_api = mock) 
+    DebitechSoap::API.stub!(:new).and_return(soap_api = mock)
     server_api = Debitech::ServerApi.new({})
     lambda {
       server_api.charge(:verify_id => 1234567, :amount => 2235.55, :currency => "SEK", :unique_reference => "some_unique_ref", :ip => "127.0.0.1")
@@ -39,7 +39,7 @@ describe Debitech::ServerApi, "charge" do
   end
 
   it "should raise an error if the unique_reference is nil" do
-    DebitechSoap::API.stub!(:new).and_return(soap_api = mock) 
+    DebitechSoap::API.stub!(:new).and_return(soap_api = mock)
     server_api = Debitech::ServerApi.new({})
     lambda {
       server_api.charge(:verify_id => 1234567, :amount => 2235, :currency => "SEK", :unique_reference => nil, :ip => "127.0.0.1")
@@ -47,7 +47,7 @@ describe Debitech::ServerApi, "charge" do
   end
 
   it "should raise an error if the unique_reference is less than 4 characters" do
-    DebitechSoap::API.stub!(:new).and_return(soap_api = mock) 
+    DebitechSoap::API.stub!(:new).and_return(soap_api = mock)
     server_api = Debitech::ServerApi.new({})
     lambda {
       server_api.charge(:verify_id => 1234567, :amount => 2235, :currency => "SEK",
@@ -56,7 +56,7 @@ describe Debitech::ServerApi, "charge" do
   end
 
   it "should be valid with a 5 character unique_reference" do
-    DebitechSoap::API.stub!(:new).and_return(soap_api = mock) 
+    DebitechSoap::API.stub!(:new).and_return(soap_api = mock)
     soap_api.stub!(:subscribe_and_settle)
     server_api = Debitech::ServerApi.new({})
     server_api.charge(:verify_id => 1234567, :amount => 2235, :currency => "SEK",
@@ -65,7 +65,7 @@ describe Debitech::ServerApi, "charge" do
 
   [ 100, 101, 150, 199 ].each do |result_code|
     it "should return success for result_code #{result_code}" do
-      DebitechSoap::API.stub!(:new).and_return(soap_api = mock) 
+      DebitechSoap::API.stub!(:new).and_return(soap_api = mock)
       soap_api.stub!(:subscribe_and_settle).and_return(response = mock(:result_code => result_code))
 
       server_api = Debitech::ServerApi.new({})
@@ -79,7 +79,7 @@ describe Debitech::ServerApi, "charge" do
 
   [ 200, 250, 300, 400 ].each do |result_code|
     it "should not be successful for result_code #{result_code}" do
-      DebitechSoap::API.stub!(:new).and_return(soap_api = mock) 
+      DebitechSoap::API.stub!(:new).and_return(soap_api = mock)
       soap_api.stub!(:subscribe_and_settle).and_return(response = mock(:result_code => result_code))
 
       server_api = Debitech::ServerApi.new({})
@@ -92,7 +92,7 @@ describe Debitech::ServerApi, "charge" do
   end
 
   it "should return pending and not be successful for 403" do
-    DebitechSoap::API.stub!(:new).and_return(soap_api = mock) 
+    DebitechSoap::API.stub!(:new).and_return(soap_api = mock)
     soap_api.stub!(:subscribe_and_settle).and_return(response = mock(:result_code => 403))
     server_api = Debitech::ServerApi.new({})
     result = server_api.charge({ :unique_reference => "some_unique_ref" })

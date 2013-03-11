@@ -62,4 +62,4 @@ describe Debitech::WebApi, "valid_response?" do
     api.valid_response?("MAC=667026AD7692F9AFDA362919EA72D8E6A250A849", "1,00", "A", 1234567).should be_true
   end
 
-end 
+end
