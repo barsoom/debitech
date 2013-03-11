@@ -1,6 +1,6 @@
 # Debitech
 
-[![Build Status](https://secure.travis-ci.org/futhr/debitech.png)](http://travis-ci.org/futhr/debitech)
+[![Build Status](https://travis-ci.org/futhr/debitech.png?branch=master)](https://travis-ci.org/futhr/debitech)
 
 This is a DebiTech payment library extracted from production code.
 
