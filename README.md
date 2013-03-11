@@ -1,5 +1,7 @@
 # Debitech
 
+[![Build Status](https://travis-ci.org/futhr/debitech.png?branch=master)](https://travis-ci.org/futhr/debitech)
+
 This is a DebiTech payment library extracted from production code.
 
 You can use this to do subscription payments without needing to handle any credit card information yourself.
@@ -39,7 +41,7 @@ Get the API docs in DIBS manager, setup the account.
 
 ## Usage: Adding a credit card
 
-    # MAC:    Secret key shared by your app and DIBS, get it from the DIBS manager 
+    # MAC:    Secret key shared by your app and DIBS, get it from the DIBS manager
     # METHOD: Something like cc.cekab, check the docs or ask support.
     debitech_web_config = {
       :merchant => "ACCOUNT_NAME",
@@ -68,7 +70,7 @@ Get the API docs in DIBS manager, setup the account.
 
 Configuration:
 
-    # METHOD, MAC, ACCOUNT_NAME: Just like with the Web Api. 
+    # METHOD, MAC, ACCOUNT_NAME: Just like with the Web Api.
     # API_USER, API_PASSWORD:    A API user you can create in DIBS manager.
     debitech_server_config = {
       :method => "METHOD",
@@ -103,10 +105,6 @@ This returns a Debitech::ServerApi::ChargeResult, check [server_api.rb](https://
 
 In case it's "pending?", you can try again later with the same unique reference. The status is probably due to some temporary timeout or error between DIBS and the bank systems.
 
-## CI
-
-- Debitech is continuously tested for compability with Ruby 1.9.3 (p0), Ruby 1.8.7, JRuby 1.6.2 and Rubinius 1.2.3.
-
 ## Contributing
 
 1. Fork it
@@ -119,7 +117,7 @@ In case it's "pending?", you can try again later with the same unique reference.
 
 By [Joakim Kolsjö](https://github.com/joakimk) for [Barsoom](http://barsoom.se) under the MIT license:
 
->  Copyright (c) 2012 Barsoom AB
+>  Copyright (c) 2013 Barsoom AB
 >
 >  Permission is hereby granted, free of charge, to any person obtaining a copy
 >  of this software and associated documentation files (the "Software"), to deal
