@@ -22,7 +22,7 @@ module Debitech
     end
 
     class ValidUniqueReferenceRequired < StandardError; end
-    
+
     # Don't know about the upper bound, but we need it to be atleast 5 characters to be
     # able to search for it in DIBS Manager.
     LEAST_NUMBER_OF_CHARACTERS_IN_UNIQUE_ID = 5

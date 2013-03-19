@@ -1,1 +1,1 @@
-rvm ruby-1.9.3-p194-falcon@debitech --create
+rvm use --create ruby-1.9.3@debitech
