@@ -2,8 +2,9 @@ require 'ostruct'
 require 'debitech'
 
 describe Debitech::WebApi do
-
-  let(:secret_key) {{ :secret_key => "secretkey" }}
+  let(:secret_key) {
+    { :secret_key => "secretkey" }
+  }
 
   describe "form_fields" do
     it "include static values" do
@@ -65,7 +66,5 @@ describe Debitech::WebApi do
       api = Debitech::WebApi.new(secret_key)
       expect(api.valid_response?("MAC=667026AD7692F9AFDA362919EA72D8E6A250A849", "1,00", "A", 1234567)).to be_true
     end
-
   end
-
 end

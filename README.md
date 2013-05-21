@@ -115,7 +115,11 @@ In case it's "pending?", you can try again later with the same unique reference.
 
 ## Credits and license
 
-By [Joakim Kolsjö](https://github.com/joakimk) for [Barsoom](http://barsoom.se) under the MIT license:
+By [Joakim Kolsjö](https://github.com/joakimk) for [Barsoom](http://barsoom.se) under the MIT license.
+
+Contributors:
+
+* [Tobias Bohwalli](https://github.com/futhr)
 
 >  Copyright (c) 2013 Barsoom AB
 >

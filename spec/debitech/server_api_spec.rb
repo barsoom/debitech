@@ -1,12 +1,15 @@
 require 'debitech'
 
 describe Debitech::ServerApi, "charge" do
+  let(:unique_reference) {
+    { :unique_reference => "some_unique_ref" }
+  }
 
-  let(:unique_reference) {{ :unique_reference => "some_unique_ref" }}
-  let(:transaction) {{ :verify_id => 1234567, :amount => 2235, :currency => "SEK", :ip => "127.0.0.1" }.merge(unique_reference) }
+  let(:transaction) {
+    { :verify_id => 1234567, :amount => 2235, :currency => "SEK", :ip => "127.0.0.1" }.merge(unique_reference)
+  }
 
   it "should perform a subscribe_and_settle call" do
-
     settings = {
       :secret_key => "112756FC8C60C5603C58DA6E0A4844ACFDB60525",
       :method => "cc.cekab",
@@ -107,5 +110,4 @@ describe Debitech::ServerApi, "charge" do
     expect(result).not_to be_success
     expect(result).to be_pending
   end
-
 end

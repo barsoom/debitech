@@ -26,7 +26,7 @@ module Debitech
       reply == APPROVED_REPLY
     end
 
-  private
+    private
 
     def base_fields
       {
