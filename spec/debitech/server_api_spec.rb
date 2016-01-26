@@ -16,17 +16,20 @@ describe Debitech::ServerApi, "charge" do
       :soap_opts => {
         :merchant => "store",
         :username => "api_user",
-        :password => "api_password"
+        :password => "api_password",
       }
     }
 
     soap_api = double
-    allow(DebitechSoap::API).to receive(:new).with({ :merchant => "store", :username => "api_user", :password => "api_password" }).
-                                           and_return(soap_api)
-    expect(soap_api).to receive(:subscribe_and_settle).with(:verifyID => 1234567,
-                            :data => "001:payment:1:10000:",
-                            :ip => "127.0.0.1",
-                            :extra => "&method=cc.cekab&currency=SEK&MAC=1931EE498A77F6B12B2C2D2EC8599719EF9CE419&referenceNo=some_unique_ref")
+    allow(DebitechSoap::API).to receive(:new).
+      with({ :merchant => "store", :username => "api_user", :password => "api_password" }).
+      and_return(soap_api)
+    expect(soap_api).to receive(:subscribe_and_settle).with(
+      :verifyID => 1234567,
+      :data => "001:payment:1:10000:",
+      :ip => "127.0.0.1",
+      :extra => "&method=cc.cekab&currency=SEK&MAC=1931EE498A77F6B12B2C2D2EC8599719EF9CE419&referenceNo=some_unique_ref",
+    )
 
     server_api = Debitech::ServerApi.new(settings)
     server_api.charge(transaction.merge(:amount => 10000))
@@ -35,10 +38,12 @@ describe Debitech::ServerApi, "charge" do
   it "should convert the amount to a integer to avoid 500 errors" do
     soap_api = double
     allow(DebitechSoap::API).to receive(:new).and_return(soap_api)
-    expect(soap_api).to receive(:subscribe_and_settle).with(:verifyID => 1234567,
-                            :data => "001:payment:1:2235:",
-                            :ip => "127.0.0.1",
-                            :extra => "&method=&currency=SEK&MAC=78B1144270B1A74A55539FAEB81BB49EC39B90DF&referenceNo=some_unique_ref")
+    expect(soap_api).to receive(:subscribe_and_settle).with(
+      :verifyID => 1234567,
+      :data => "001:payment:1:2235:",
+      :ip => "127.0.0.1",
+      :extra => "&method=&currency=SEK&MAC=78B1144270B1A74A55539FAEB81BB49EC39B90DF&referenceNo=some_unique_ref",
+    )
 
     server_api = Debitech::ServerApi.new({})
     server_api.charge(transaction.merge(:amount => 2235.0))
