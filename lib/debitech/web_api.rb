@@ -12,8 +12,13 @@ module Debitech
     end
 
     # you probably want to encode these when posting to dibs, for example HTMLEntities.new.encode(v, :named) (gem: htmlentities)
-    def form_fields
-      base_fields.merge(:MAC => request_mac)
+    def form_fields(more_custom_fields = {})
+      # Overriding via the initializer may be more convenient for per-env stuff like "method"".
+      # Overriding via the method argument may be more convenient for per-request stuff like multiple pageSets.
+      base_fields.
+        merge(@custom_fields).
+        merge(more_custom_fields).
+        merge(:MAC => request_mac)
     end
 
     def form_action
@@ -44,8 +49,8 @@ module Debitech
         :billingAddress   => "Address",
         :billingCity      => "City",
         :billingCountry   => "Country",
-        :eMail            => "email@example.com"
-      }.merge(@custom_fields)
+        :eMail            => "email@example.com",
+      }
     end
 
     def request_mac

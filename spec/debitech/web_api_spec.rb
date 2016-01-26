@@ -9,13 +9,20 @@ describe Debitech::WebApi do
   describe "form_fields" do
     it "include static values" do
       fields = Debitech::WebApi.new(secret_key).form_fields
-      expect(fields[:currency]).to match /SEK/
-      expect(fields[:method]).to match /cc.test/
+      expect(fields[:currency]).to eq "SEK"
+      expect(fields[:method]).to eq "cc.test"
     end
 
-    it "is possible to override the values" do
+    it "is possible to override the values via the initializer" do
       fields = Debitech::WebApi.new(secret_key.merge(:fields => { :method => "cc.cekab" })).form_fields
-      expect(fields[:method]).to match /cc.cekab/
+      expect(fields[:method]).to eq "cc.cekab"
+    end
+
+    it "is possible to override the values via method parameters" do
+      api = Debitech::WebApi.new(secret_key.merge(:fields => { :pageSet => "mydefault" }))
+
+      expect(api.form_fields.fetch(:pageSet)).to eq "mydefault"
+      expect(api.form_fields(pageSet: "override").fetch(:pageSet)).to eq "override"
     end
 
     it "calculate mac" do

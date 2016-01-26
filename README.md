@@ -46,13 +46,15 @@ Get the API docs in DIBS manager, setup the account.
     debitech_web_config = {
       :merchant => "ACCOUNT_NAME",
       :secret_key => "MAC",
-      :fields => { :method => "METHOD" }
+      :fields => { :method => "METHOD", pageSet: "my-default-pageset" }
     }
 
     # In the view: form to redirect the user to DIBS
+    # You can optionally pass a hash of further custom fields.
     <% api = Debitech::WebApi.new(debitech_web_config) %>
+    <% custom_fields = { pageSet: "my-custom-pageset" } %>
     <form accept-charset="iso-8859-1" action="<%= api.form_action %>" method="post">
-      <% api.form_fields.each do |name, value| %>
+      <% api.form_fields(custom_fields).each do |name, value| %>
         <input name="<%= name %>" type="hidden" value="<%= value %>">
       <% end %>
 
