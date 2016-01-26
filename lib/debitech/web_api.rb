@@ -43,7 +43,7 @@ module Debitech
         :billingCity      => "City",
         :billingCountry   => "Country",
         :eMail            => "email@example.com"
-      }.merge!(@opts[:fields] || {})
+      }.merge(@opts[:fields] || {})
     end
 
     def request_mac
