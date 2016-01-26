@@ -15,7 +15,7 @@ module Debitech
     end
 
     def form_action
-      "https://secure.incab.se/verify/bin/#{@opts[:merchant]}/index"
+      "https://securedt.dibspayment.com/verify/bin/#{@opts[:merchant]}/index"
     end
 
     def valid_response?(mac, sum, reply, verify_id)

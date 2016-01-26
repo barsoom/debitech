@@ -26,7 +26,8 @@ describe Debitech::WebApi do
 
   describe "form_action" do
     it "return the url based on shop" do
-      expect(Debitech::WebApi.new({ :merchant => "shop" }).form_action).to include "https://secure.incab.se/verify/bin/shop/index"
+      api = Debitech::WebApi.new({ :merchant => "myshop" })
+      expect(api.form_action).to include "https://securedt.dibspayment.com/verify/bin/myshop/index"
     end
   end
 
