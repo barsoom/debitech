@@ -24,6 +24,8 @@ module Debitech
       "https://securedt.dibspayment.com/verify/bin/#{@merchant}/index"
     end
 
+    # If the currency was passed into form_fields (and thus isn't known on an instance level),
+    # you will need to pass it in explicitly here.
     def valid_response?(mac, sum, reply, verify_id, currency = custom_fields[:currency])
       response_mac(sum, reply, verify_id, currency) == mac.upcase.split("=").last
     end
