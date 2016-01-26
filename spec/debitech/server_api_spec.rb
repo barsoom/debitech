@@ -20,9 +20,10 @@ describe Debitech::ServerApi, "charge" do
       }
     }
 
-    DebitechSoap::API.should_receive(:new).with({ :merchant => "store", :username => "api_user", :password => "api_password" }).
-                                           and_return(soap_api = mock)
-    soap_api.should_receive(:subscribe_and_settle).with(:verifyID => 1234567,
+    soap_api = double
+    allow(DebitechSoap::API).to receive(:new).with({ :merchant => "store", :username => "api_user", :password => "api_password" }).
+                                           and_return(soap_api)
+    expect(soap_api).to receive(:subscribe_and_settle).with(:verifyID => 1234567,
                             :data => "001:payment:1:10000:",
                             :ip => "127.0.0.1",
                             :extra => "&method=cc.cekab&currency=SEK&MAC=1931EE498A77F6B12B2C2D2EC8599719EF9CE419&referenceNo=some_unique_ref")
@@ -32,8 +33,9 @@ describe Debitech::ServerApi, "charge" do
   end
 
   it "should convert the amount to a integer to avoid 500 errors" do
-    DebitechSoap::API.stub!(:new).and_return(soap_api = mock)
-    soap_api.should_receive(:subscribe_and_settle).with(:verifyID => 1234567,
+    soap_api = double
+    allow(DebitechSoap::API).to receive(:new).and_return(soap_api)
+    expect(soap_api).to receive(:subscribe_and_settle).with(:verifyID => 1234567,
                             :data => "001:payment:1:2235:",
                             :ip => "127.0.0.1",
                             :extra => "&method=&currency=SEK&MAC=78B1144270B1A74A55539FAEB81BB49EC39B90DF&referenceNo=some_unique_ref")
@@ -43,7 +45,8 @@ describe Debitech::ServerApi, "charge" do
   end
 
   it "should raise an error if the amount has a fraction" do
-    DebitechSoap::API.stub!(:new).and_return(soap_api = mock)
+    soap_api = double
+    allow(DebitechSoap::API).to receive(:new).and_return(soap_api)
     server_api = Debitech::ServerApi.new({})
     expect {
       server_api.charge(transaction.merge(:amount => 2235.55))
@@ -51,7 +54,8 @@ describe Debitech::ServerApi, "charge" do
   end
 
   it "should raise an error if the unique_reference is nil" do
-    DebitechSoap::API.stub!(:new).and_return(soap_api = mock)
+    soap_api = double
+    allow(DebitechSoap::API).to receive(:new).and_return(soap_api)
     server_api = Debitech::ServerApi.new({})
     expect {
       server_api.charge(transaction.merge(:unique_reference => nil))
@@ -59,7 +63,8 @@ describe Debitech::ServerApi, "charge" do
   end
 
   it "should raise an error if the unique_reference is less than 4 characters" do
-    DebitechSoap::API.stub!(:new).and_return(soap_api = mock)
+    soap_api = double
+    allow(DebitechSoap::API).to receive(:new).and_return(soap_api)
     server_api = Debitech::ServerApi.new({})
     expect {
       server_api.charge(transaction.merge(:unique_reference => "1234"))
@@ -67,16 +72,19 @@ describe Debitech::ServerApi, "charge" do
   end
 
   it "should be valid with a 5 character unique_reference" do
-    DebitechSoap::API.stub!(:new).and_return(soap_api = mock)
-    soap_api.stub!(:subscribe_and_settle)
+    soap_api = double
+    allow(DebitechSoap::API).to receive(:new).and_return(soap_api)
+    allow(soap_api).to receive(:subscribe_and_settle)
     server_api = Debitech::ServerApi.new({})
     server_api.charge(transaction.merge(:unique_reference => "12345"))
   end
 
   [ 100, 101, 150, 199 ].each do |result_code|
     it "should return success for result_code #{result_code}" do
-      DebitechSoap::API.stub!(:new).and_return(soap_api = mock)
-      soap_api.stub!(:subscribe_and_settle).and_return(response = mock(:result_code => result_code))
+      soap_api = double
+      allow(DebitechSoap::API).to receive(:new).and_return(soap_api)
+      response = double(:result_code => result_code)
+      allow(soap_api).to receive(:subscribe_and_settle).and_return(response)
 
       server_api = Debitech::ServerApi.new({})
       result = server_api.charge(unique_reference)
@@ -89,8 +97,10 @@ describe Debitech::ServerApi, "charge" do
 
   [ 200, 250, 300, 400 ].each do |result_code|
     it "should not be successful for result_code #{result_code}" do
-      DebitechSoap::API.stub!(:new).and_return(soap_api = mock)
-      soap_api.stub!(:subscribe_and_settle).and_return(response = mock(:result_code => result_code))
+      soap_api = double
+      allow(DebitechSoap::API).to receive(:new).and_return(soap_api)
+      response = double(:result_code => result_code)
+      allow(soap_api).to receive(:subscribe_and_settle).and_return(response)
 
       server_api = Debitech::ServerApi.new({})
       result = server_api.charge(unique_reference)
@@ -102,8 +112,10 @@ describe Debitech::ServerApi, "charge" do
   end
 
   it "should return pending and not be successful for 403" do
-    DebitechSoap::API.stub!(:new).and_return(soap_api = mock)
-    soap_api.stub!(:subscribe_and_settle).and_return(response = mock(:result_code => 403))
+    soap_api = double
+    allow(DebitechSoap::API).to receive(:new).and_return(soap_api)
+    response = double(:result_code => 403)
+    allow(soap_api).to receive(:subscribe_and_settle).and_return(response)
     server_api = Debitech::ServerApi.new({})
     result = server_api.charge(unique_reference)
 
