@@ -6,7 +6,9 @@ module Debitech
     APPROVED_REPLY = "A"
 
     def initialize(opts = {})
-      @opts = opts
+      @merchant = opts.fetch(:merchant, nil)
+      @secret_key = opts.fetch(:secret_key, nil)
+      @custom_fields = opts.fetch(:fields, {})
     end
 
     # you probably want to encode these when posting to dibs, for example HTMLEntities.new.encode(v, :named) (gem: htmlentities)
@@ -15,7 +17,7 @@ module Debitech
     end
 
     def form_action
-      "https://securedt.dibspayment.com/verify/bin/#{@opts[:merchant]}/index"
+      "https://securedt.dibspayment.com/verify/bin/#{@merchant}/index"
     end
 
     def valid_response?(mac, sum, reply, verify_id)
@@ -43,15 +45,15 @@ module Debitech
         :billingCity      => "City",
         :billingCountry   => "Country",
         :eMail            => "email@example.com"
-      }.merge(@opts[:fields] || {})
+      }.merge(@custom_fields)
     end
 
     def request_mac
-      Mac.build [ base_fields[:data], base_fields[:currency], base_fields[:method], @opts[:secret_key] ]
+      Mac.build [ base_fields[:data], base_fields[:currency], base_fields[:method], @secret_key ]
     end
 
     def response_mac(sum, reply, verify_id)
-      Mac.build [ sum, base_fields[:currency], reply, verify_id, @opts[:secret_key] ]
+      Mac.build [ sum, base_fields[:currency], reply, verify_id, @secret_key ]
     end
   end
 end
