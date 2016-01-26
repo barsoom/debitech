@@ -25,9 +25,15 @@ describe Debitech::WebApi do
       expect(api.form_fields(pageSet: "override").fetch(:pageSet)).to eq "override"
     end
 
-    it "calculate mac" do
+    it "calculates MAC" do
       expect(Debitech::WebApi.new({ :secret_key => "secretkey1" }).form_fields[:MAC]).to match /DF253765337968C5ED7E6EA530CD692942416ABE/
       expect(Debitech::WebApi.new({ :secret_key => "secretkey2" }).form_fields[:MAC]).to match /BEB3C370E37837734642111D44CA7E304A0F45F2/
+    end
+
+    it "accounts for overrides in the MAC" do
+      mac_without_override = Debitech::WebApi.new({ :secret_key => "secretkey1" }).form_fields.fetch(:MAC)
+      mac_with_override = Debitech::WebApi.new({ :secret_key => "secretkey1" }).form_fields(method: "other-method").fetch(:MAC)
+      expect(mac_without_override).not_to eq(mac_with_override)
     end
   end
 
@@ -73,6 +79,12 @@ describe Debitech::WebApi do
     it "handle if verify_id is an int" do
       api = Debitech::WebApi.new(secret_key)
       expect(api.valid_response?("MAC=667026AD7692F9AFDA362919EA72D8E6A250A849", "1,00", "A", 1234567)).to be true
+    end
+
+    it "lets you pass currency explicitly" do
+      api = Debitech::WebApi.new(secret_key)
+      expect(api.valid_response?("MAC=667026AD7692F9AFDA362919EA72D8E6A250A849", "1,00", "A", 1234567, "SEK")).to be true
+      expect(api.valid_response?("MAC=667026AD7692F9AFDA362919EA72D8E6A250A849", "1,00", "A", 1234567, "EUR")).to be false
     end
   end
 end

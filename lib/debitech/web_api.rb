@@ -15,18 +15,17 @@ module Debitech
     def form_fields(more_custom_fields = {})
       # Overriding via the initializer may be more convenient for per-env stuff like "method"".
       # Overriding via the method argument may be more convenient for per-request stuff like multiple pageSets.
-      base_fields.
-        merge(@custom_fields).
-        merge(more_custom_fields).
-        merge(:MAC => request_mac)
+      all_fields_except_mac = custom_fields.merge(more_custom_fields)
+      mac = request_mac(all_fields_except_mac)
+      all_fields_except_mac.merge(:MAC => mac)
     end
 
     def form_action
       "https://securedt.dibspayment.com/verify/bin/#{@merchant}/index"
     end
 
-    def valid_response?(mac, sum, reply, verify_id)
-      response_mac(sum, reply, verify_id) == mac.upcase.split("=").last
+    def valid_response?(mac, sum, reply, verify_id, currency = custom_fields[:currency])
+      response_mac(sum, reply, verify_id, currency) == mac.upcase.split("=").last
     end
 
     def approved_reply?(reply)
@@ -34,6 +33,10 @@ module Debitech
     end
 
     private
+
+    def custom_fields
+      base_fields.merge(@custom_fields)
+    end
 
     def base_fields
       {
@@ -53,12 +56,14 @@ module Debitech
       }
     end
 
-    def request_mac
-      Mac.build [ base_fields[:data], base_fields[:currency], base_fields[:method], @secret_key ]
+    private
+
+    def request_mac(fields)
+      Mac.build [ fields[:data], fields[:currency], fields[:method], @secret_key ]
     end
 
-    def response_mac(sum, reply, verify_id)
-      Mac.build [ sum, base_fields[:currency], reply, verify_id, @secret_key ]
+    def response_mac(sum, reply, verify_id, currency)
+      Mac.build [ sum, currency, reply, verify_id, @secret_key ]
     end
   end
 end
