@@ -1,4 +1,4 @@
-require 'debitech'
+require "debitech"
 
 describe Debitech::ServerApi, "charge" do
   let(:unique_reference) {

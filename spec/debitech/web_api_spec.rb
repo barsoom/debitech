@@ -1,5 +1,5 @@
-require 'ostruct'
-require 'debitech'
+require "ostruct"
+require "debitech"
 
 describe Debitech::WebApi do
   let(:secret_key) {

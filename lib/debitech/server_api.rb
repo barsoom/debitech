@@ -1,5 +1,5 @@
-require 'debitech_soap'
-require 'debitech/mac'
+require "debitech_soap"
+require "debitech/mac"
 
 module Debitech
   class ServerApi

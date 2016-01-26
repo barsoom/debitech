@@ -1,5 +1,5 @@
-require 'digest/sha1'
-require 'debitech/mac'
+require "digest/sha1"
+require "debitech/mac"
 
 module Debitech
   class WebApi
