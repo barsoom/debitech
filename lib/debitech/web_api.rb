@@ -13,7 +13,7 @@ module Debitech
 
     # you probably want to encode these when posting to dibs, for example HTMLEntities.new.encode(v, :named) (gem: htmlentities)
     def form_fields(more_custom_fields = {})
-      # Overriding via the initializer may be more convenient for per-env stuff like "method"".
+      # Overriding via the initializer may be more convenient for per-env stuff like "method".
       # Overriding via the method argument may be more convenient for per-request stuff like multiple pageSets.
       all_fields_except_mac = custom_fields.merge(more_custom_fields)
       mac = request_mac(all_fields_except_mac)
