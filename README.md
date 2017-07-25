@@ -65,6 +65,7 @@ Get the API docs in DIBS manager, setup the account.
 
     # When you get the response back (TODO: add example templates)
     api.valid_response?(mac, sum, reply, verify_id) # is the response from DIBS?
+    api.valid_response?(mac, sum, reply, verify_id, currency, reference_number) # if the request included "referenceNo", do this instead
     api.approved_reply?(reply)                      # was the card added successfully?
 
     # Store verify_id as your reference to the card.
