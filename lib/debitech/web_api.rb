@@ -26,8 +26,8 @@ module Debitech
 
     # If the currency was passed into form_fields (and thus isn't known on an instance level),
     # you will need to pass it in explicitly here.
-    def valid_response?(mac, sum, reply, verify_id, currency = custom_fields[:currency])
-      response_mac(sum, reply, verify_id, currency) == mac.upcase.split("=").last
+    def valid_response?(mac, sum, reply, verify_id, currency = custom_fields[:currency], reference_number = nil)
+      response_mac(sum, reply, verify_id, currency, reference_number) == mac.upcase.split("=").last
     end
 
     def approved_reply?(reply)
@@ -64,8 +64,14 @@ module Debitech
       Mac.build [ fields[:data], fields[:currency], fields[:method], @secret_key ]
     end
 
-    def response_mac(sum, reply, verify_id, currency)
-      Mac.build [ sum, currency, reply, verify_id, @secret_key ]
+    def response_mac(sum, reply, verify_id, currency, reference_number)
+      # Reference number is optional, but if it's passed in when making the payment it
+      # needs to be part of the response_mac calculation to verify the payment result.
+      if reference_number
+        Mac.build [ sum, currency, reply, verify_id, reference_number, @secret_key ]
+      else
+        Mac.build [ sum, currency, reply, verify_id, @secret_key ]
+      end
     end
   end
 end

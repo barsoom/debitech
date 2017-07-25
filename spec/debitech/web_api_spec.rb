@@ -76,7 +76,7 @@ describe Debitech::WebApi do
       expect(api.valid_response?("MAC=667026AD7692F9AFDA362919EA72D8E6A250A849", "1,00", "A", "1234567")).to be false
     end
 
-    it "handle if verify_id is an int" do
+    it "handles if verify_id is an int" do
       api = Debitech::WebApi.new(secret_key)
       expect(api.valid_response?("MAC=667026AD7692F9AFDA362919EA72D8E6A250A849", "1,00", "A", 1234567)).to be true
     end
@@ -85,6 +85,11 @@ describe Debitech::WebApi do
       api = Debitech::WebApi.new(secret_key)
       expect(api.valid_response?("MAC=667026AD7692F9AFDA362919EA72D8E6A250A849", "1,00", "A", 1234567, "SEK")).to be true
       expect(api.valid_response?("MAC=667026AD7692F9AFDA362919EA72D8E6A250A849", "1,00", "A", 1234567, "EUR")).to be false
+    end
+
+    it "handles MAC based on reference_number" do
+      api = Debitech::WebApi.new(secret_key)
+      expect(api.valid_response?("MAC=AB4698D21798C6F3A1EA25CD67590A072211123D", "1,00", "A", "1234567", "SEK", "ref-123")).to be true
     end
   end
 end
