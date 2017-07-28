@@ -76,7 +76,7 @@ describe Debitech::WebApi do
       expect(api.valid_response?("MAC=667026AD7692F9AFDA362919EA72D8E6A250A849", "1,00", "A", "1234567")).to be false
     end
 
-    it "handles if verify_id is an int" do
+    it "handles if verify_id is an integer" do
       api = Debitech::WebApi.new(secret_key)
       expect(api.valid_response?("MAC=667026AD7692F9AFDA362919EA72D8E6A250A849", "1,00", "A", 1234567)).to be true
     end
