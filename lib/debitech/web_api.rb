@@ -48,7 +48,6 @@ module Debitech
         :authOnly         => "true",
         :pageSet          => "creditcard",
         :data             => "001:auth:1:100:",
-        :uses3dsecure     => "false",
         :billingFirstName => "First name",
         :billingLastName  => "Last name",
         :billingAddress   => "Address",
