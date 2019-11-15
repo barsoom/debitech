@@ -60,7 +60,13 @@ module Debitech
     private
 
     def request_mac(fields)
-      Mac.build [ fields[:data], fields[:currency], fields[:method], @secret_key ]
+      verify_id = fields[:verifyID]
+
+      if verify_id
+        Mac.build [ fields[:data], fields[:currency], fields[:method], @secret_key, verify_id ]
+      else
+        Mac.build [ fields[:data], fields[:currency], fields[:method], @secret_key ]
+      end
     end
 
     def response_mac(sum, reply, verify_id, currency, reference_number)

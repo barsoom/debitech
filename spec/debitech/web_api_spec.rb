@@ -35,6 +35,12 @@ describe Debitech::WebApi do
       mac_with_override = Debitech::WebApi.new({ :secret_key => "secretkey1" }).form_fields(method: "other-method").fetch(:MAC)
       expect(mac_without_override).not_to eq(mac_with_override)
     end
+
+    it "includes verify_id in the MAC if provided" do
+      mac_without_verify_id = Debitech::WebApi.new({ :secret_key => "secretkey1" }).form_fields.fetch(:MAC)
+      mac_with_verify_id = Debitech::WebApi.new({ :secret_key => "secretkey1" }).form_fields(verifyID: "123456").fetch(:MAC)
+      expect(mac_without_verify_id).not_to eq(mac_with_verify_id)
+    end
   end
 
   describe "form_action" do
