@@ -1,12 +1,8 @@
 language: ruby
+
 rvm:
-  - 2.3.0
-  - 1.9.3
-  - jruby-19mode
+  - "2.7"
+  - "2.6"
+  - "2.5"
   - ruby-head
   - jruby-head
-
-# Workaround for Travis + Bundler issues. If this ticket has been resolved, maybe we can remove the workaround.
-# https://github.com/travis-ci/travis-ci/issues/3531
-before_install:
-  - gem install bundler
