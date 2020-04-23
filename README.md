@@ -6,7 +6,7 @@ This is a DebiTech payment library extracted from production code.
 
 You can use this to do subscription payments without needing to handle any credit card information yourself.
 
-If you want something more low level, check the [debitech_soap](https://github.com/joakimk/debitech_soap) gem, which this library uses for API access.
+If you want something more low-level, check the [debitech_soap](https://github.com/joakimk/debitech_soap) gem, which this library uses for API access.
 
 Setting up payments using DebiTech (one of the two payment systems run by DIBS) is not trivial,
 but it seems there are not many good options in Sweden yet. Atleast using this you don't need to
