@@ -21,9 +21,9 @@ describe Debitech::ServerApi, "charge" do
     }
 
     soap_api = double
-    allow(DebitechSoap::API).to receive(:new).
-      with({ :merchant => "store", :username => "api_user", :password => "api_password" }).
-      and_return(soap_api)
+    allow(DebitechSoap::API).to receive(:new)
+      .with({ :merchant => "store", :username => "api_user", :password => "api_password" })
+      .and_return(soap_api)
     expect(soap_api).to receive(:subscribe_and_settle).with(
       :verifyID => 1234567,
       :data => "001:payment:1:10000:",
