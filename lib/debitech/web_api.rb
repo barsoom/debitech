@@ -17,7 +17,7 @@ module Debitech
       # Overriding via the method argument may be more convenient for per-request stuff like multiple pageSets.
       all_fields_except_mac = custom_fields.merge(more_custom_fields)
       mac = request_mac(all_fields_except_mac)
-      all_fields_except_mac.merge(:MAC => mac)
+      all_fields_except_mac.merge(MAC: mac)
     end
 
     def form_action
@@ -42,18 +42,18 @@ module Debitech
 
     def base_fields
       {
-        :currency         => "SEK",
-        :method           => "cc.test",
-        :amount           => "100",
-        :authOnly         => "true",
-        :pageSet          => "creditcard",
-        :data             => "001:auth:1:100:",
-        :billingFirstName => "First name",
-        :billingLastName  => "Last name",
-        :billingAddress   => "Address",
-        :billingCity      => "City",
-        :billingCountry   => "Country",
-        :eMail            => "email@example.com",
+        currency: "SEK",
+        method: "cc.test",
+        amount: "100",
+        authOnly: "true",
+        pageSet: "creditcard",
+        data: "001:auth:1:100:",
+        billingFirstName: "First name",
+        billingLastName: "Last name",
+        billingAddress: "Address",
+        billingCity: "City",
+        billingCountry: "Country",
+        eMail: "email@example.com",
       }
     end
 

@@ -44,7 +44,7 @@ module Debitech
       data = "001:payment:1:#{opts[:amount].to_i}:"
       mac = Mac.build [ data, opts[:currency], opts[:unique_reference], @config[:secret_key] ]
       extra = "&method=#{@config[:method]}&currency=#{opts[:currency]}&MAC=#{mac}&referenceNo=#{opts[:unique_reference]}"
-      response = @soap_api.subscribe_and_settle(:verifyID => opts[:verify_id], :ip => opts[:ip], :data => data, :extra => extra)
+      response = @soap_api.subscribe_and_settle(verifyID: opts[:verify_id], ip: opts[:ip], data: data, extra: extra)
       ChargeResult.new(response)
     end
   end
