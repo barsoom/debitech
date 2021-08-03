@@ -13,7 +13,7 @@ module Debitech
       end
 
       def success?
-        @response.result_code.to_s[0,1] == "1"
+        @response.result_code.to_s[0, 1] == "1"
       end
 
       def pending?
