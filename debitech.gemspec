@@ -3,8 +3,8 @@ require File.expand_path("../lib/debitech/version", __FILE__)
 
 Gem::Specification.new do |s|
   s.platform      = Gem::Platform::RUBY
-  s.authors       = ["Joakim Kolsjö"]
-  s.email         = ["joakim@barsoom.se"]
+  s.authors       = [ "Joakim Kolsjö" ]
+  s.email         = [ "joakim@barsoom.se" ]
   s.description   = %q{Library for doing payments using DebiTech (DIBS)}
   s.summary       = %q{Library for doing payments using DebiTech (DIBS)}
   s.homepage      = "https://github.com/barsoom/debitech"
@@ -20,5 +20,5 @@ Gem::Specification.new do |s|
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {spec}/*`.split("\n")
-  s.require_paths = ["lib"]
+  s.require_paths = [ "lib" ]
 end
