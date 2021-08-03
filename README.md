@@ -1,6 +1,6 @@
 # Debitech
 
-[![Build Status](https://travis-ci.org/barsoom/debitech.svg?branch=master)](https://travis-ci.org/barsoom/debitech)
+[![Ruby CI](https://github.com/barsoom/debitech/actions/workflows/ci.yml/badge.svg)](https://github.com/barsoom/debitech/actions/workflows/ci.yml)
 
 This is a DebiTech payment library extracted from production code.
 
