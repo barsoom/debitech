@@ -17,7 +17,7 @@ describe Debitech::ServerApi, "charge" do
         :merchant => "store",
         :username => "api_user",
         :password => "api_password",
-      }
+      },
     }
 
     soap_api = double
