@@ -10,6 +10,7 @@ Gem::Specification.new do |s|
   s.homepage      = "https://github.com/barsoom/debitech"
   s.name          = "debitech"
   s.version       = Debitech::VERSION
+  s.metadata      = { "rubygems_mfa_required" => "true" }
 
   s.required_ruby_version = ">= 1.8.7"
 
