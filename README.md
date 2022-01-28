@@ -1,3 +1,5 @@
+## Not maintened
+
 # Debitech
 
 [![Ruby CI](https://github.com/barsoom/debitech/actions/workflows/ci.yml/badge.svg)](https://github.com/barsoom/debitech/actions/workflows/ci.yml)
